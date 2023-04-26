@@ -8,6 +8,7 @@ function App(): JSX.Element {
   const { responseData, heroes, fetchHeroes } = useFetchHeroes();
   const [heroName, setHeroName] = useState('');
 
+  const [pageOffset, setPageOffset] = useState(0);
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
 
   useEffect(() => {
@@ -20,9 +21,18 @@ function App(): JSX.Element {
     fetchHeroes(0, heroName);
   }, [heroName]);
 
+  const handlePreviousPage = () => {
+    const offset = pageOffset - 4;
+    if(offset < 0) return;
+    setCurrentPageIndex(prevState => prevState === 1 ? 1 : prevState - 1);
+    fetchHeroes(offset, heroName ? heroName : undefined);
+  }
+  
   const handleNextPage = () => {
     const offset = 4 * (currentPageIndex);
     if(responseData?.total && offset >= responseData?.total) return;
+
+    setPageOffset(offset);
     setCurrentPageIndex(prevState => prevState + 1);
     fetchHeroes(offset, heroName ? heroName : undefined);
   }
@@ -48,11 +58,11 @@ function App(): JSX.Element {
         } />
 
         <View style={{ flexDirection: 'row', marginTop: 5, alignSelf: 'center', width: 150, justifyContent: 'space-between' }}>
-          <TouchableOpacity>
+          <TouchableOpacity style={{padding: 5}} onPress={handlePreviousPage}>
             <Text>{'<   '}</Text>
           </TouchableOpacity>
           <Text>{currentPageIndex}</Text>
-          <TouchableOpacity style={{backgroundColor: 'blue', padding: 5}} onPress={handleNextPage}>
+          <TouchableOpacity style={{padding: 5}} onPress={handleNextPage}>
             <Text>{'   >'}</Text>
           </TouchableOpacity>
 
