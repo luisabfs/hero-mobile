@@ -15,7 +15,7 @@ interface HeroData {
 export const useFetchHeroes = () => {
     const [heroes, setHeroes] = useState<HeroData[]>();
 
-    const fetchHeroes = async () => {
+    const fetchHeroes = async (heroName?: string) => {
       try {
           const response = await axios.request({
             method: 'GET',
@@ -26,7 +26,8 @@ export const useFetchHeroes = () => {
               ts: 1,
               limit: 4, 
               orderBy: 'name',
-              offset: 200
+              offset: 0,
+              nameStartsWith: heroName
             }
           });
           setHeroes(response.data.data.results);
