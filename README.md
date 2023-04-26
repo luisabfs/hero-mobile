@@ -7,7 +7,7 @@ These instructions will show you how to make a copy of this project and run it l
 
 ### Prerequisites
 
-- [Marvel API Key](https://developer.marvel.com/documentation/getting_started) to make the requests to the Marvel carachters API;
+- [Marvel API Key and Hash](https://developer.marvel.com/documentation/authorization) to make the requests to the Marvel characters API;
 
 - [React Native environment](https://reactnative.dev/docs/getting-started) with iOS and/or Android build;
 
@@ -16,7 +16,7 @@ These instructions will show you how to make a copy of this project and run it l
 Clone the repository:
 
 ```
-git clone https://github.com/luisabfs/favtube.git
+git clone https://github.com/luisabfs/heromobile.git
 ```
 
 Initialize the dependencies in `node_modules`:
@@ -29,6 +29,7 @@ Create a file called `.env` in the root of the project and add your API key:
 
 ```env
 API_KEY=YOURAPIKEY
+API_HASH=YOURAPIHASH
 ```
 
 Start and build the app:
