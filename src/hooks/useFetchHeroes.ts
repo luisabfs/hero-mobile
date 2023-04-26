@@ -4,6 +4,11 @@ import { API_KEY, API_HASH } from '@env';
 
 axios.defaults.baseURL = "https://gateway.marvel.com/v1/public/";
 
+interface ResponseData {
+  total: number;
+  results: HeroData
+}
+
 interface HeroData {
   name: string;
   thumbnail: {
@@ -13,9 +18,10 @@ interface HeroData {
 }
 
 export const useFetchHeroes = () => {
+    const [responseData, setResponseData] = useState<ResponseData>();
     const [heroes, setHeroes] = useState<HeroData[]>();
-
-    const fetchHeroes = async (heroName?: string) => {
+    
+    const fetchHeroes = async (offset: number, heroName?: string) => {
       try {
           const response = await axios.request({
             method: 'GET',
@@ -25,11 +31,11 @@ export const useFetchHeroes = () => {
               hash: API_HASH,
               ts: 1,
               limit: 4, 
-              orderBy: 'name',
-              offset: 0,
+              offset,
               nameStartsWith: heroName
             }
           });
+          setResponseData(response.data.data);
           setHeroes(response.data.data.results);
       } catch(error) {
           console.log(error)
@@ -37,8 +43,8 @@ export const useFetchHeroes = () => {
     }
 
     useEffect(() => {
-      fetchHeroes();
+      fetchHeroes(0);
     }, []);
 
-    return { heroes, fetchHeroes };
+    return { responseData, heroes, fetchHeroes };
 };

@@ -5,13 +5,27 @@ import { useFetchHeroes } from './hooks/useFetchHeroes';
 import { treatThumbnailUri } from './utils';
 
 function App(): JSX.Element {
-  const { heroes, fetchHeroes } = useFetchHeroes();
+  const { responseData, heroes, fetchHeroes } = useFetchHeroes();
   const [heroName, setHeroName] = useState('');
+
+  const [currentPageIndex, setCurrentPageIndex] = useState(1);
+
+  useEffect(() => {
+    setHeroName('');
+  }, []);
 
   useEffect(() => {
     if(!heroName) return;
-    fetchHeroes(heroName);
+    setCurrentPageIndex(1);
+    fetchHeroes(0, heroName);
   }, [heroName]);
+
+  const handleNextPage = () => {
+    const offset = 4 * (currentPageIndex);
+    if(responseData?.total && offset >= responseData?.total) return;
+    setCurrentPageIndex(prevState => prevState + 1);
+    fetchHeroes(offset, heroName ? heroName : undefined);
+  }
 
   return (
     <NavigationContainer>
@@ -32,6 +46,17 @@ function App(): JSX.Element {
             </View>
           )
         } />
+
+        <View style={{ flexDirection: 'row', marginTop: 5, alignSelf: 'center', width: 150, justifyContent: 'space-between' }}>
+          <TouchableOpacity>
+            <Text>{'<   '}</Text>
+          </TouchableOpacity>
+          <Text>{currentPageIndex}</Text>
+          <TouchableOpacity style={{backgroundColor: 'blue', padding: 5}} onPress={handleNextPage}>
+            <Text>{'   >'}</Text>
+          </TouchableOpacity>
+
+        </View>
       </SafeAreaView>
     </NavigationContainer>
   );
