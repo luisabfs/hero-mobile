@@ -9,7 +9,7 @@ interface ResponseData {
   results: HeroData
 }
 
-interface HeroData {
+export interface HeroData {
   name: string;
   thumbnail: {
     path: string;
@@ -20,7 +20,10 @@ interface HeroData {
 export const useFetchHeroes = () => {
     const [responseData, setResponseData] = useState<ResponseData>();
     const [heroes, setHeroes] = useState<HeroData[]>();
-    
+
+    console.log('responseData>>>>>>>>>>>', responseData);
+    console.log('heroes>>>>>>>>>>>', heroes);
+
     const fetchHeroes = async (offset: number, heroName?: string) => {
       try {
           const response = await axios.request({
