@@ -1,73 +1,47 @@
 import React, {useEffect, useState} from 'react';
-import { StatusBar, SafeAreaView, Text, TextInput, FlatList, View, Image, TouchableOpacity } from 'react-native';
+import { StatusBar, SafeAreaView,FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { useFetchHeroes } from './hooks/useFetchHeroes';
-import { treatThumbnailUri } from './utils';
+import { useFetchHeroes, usePagination } from './hooks';
+import responseData from './utils/responseData.json';
+import Paginate from './components/Paginate';
+import HeroItem from './components/HeroItem';
+import { HeaderContainer, Font, NameBanner, Input, Divider, Footer } from './styles';
 
 function App(): JSX.Element {
-  const { responseData, heroes, fetchHeroes } = useFetchHeroes();
+  // const { heroes, fetchHeroes } = useFetchHeroes();
+  const { setCurrentPageIndex } = usePagination();
   const [heroName, setHeroName] = useState('');
 
-  const [pageOffset, setPageOffset] = useState(0);
-  const [currentPageIndex, setCurrentPageIndex] = useState(1);
-
+  const {results: heroes} = responseData;
+  
   useEffect(() => {
     setHeroName('');
   }, []);
 
-  useEffect(() => {
-    if(!heroName) return;
-    setCurrentPageIndex(1);
-    fetchHeroes(0, heroName);
-  }, [heroName]);
-
-  const handlePreviousPage = () => {
-    const offset = pageOffset - 4;
-    if(offset < 0) return;
-    setCurrentPageIndex(prevState => prevState === 1 ? 1 : prevState - 1);
-    fetchHeroes(offset, heroName ? heroName : undefined);
-  }
-  
-  const handleNextPage = () => {
-    const offset = 4 * (currentPageIndex);
-    if(responseData?.total && offset >= responseData?.total) return;
-
-    setPageOffset(offset);
-    setCurrentPageIndex(prevState => prevState + 1);
-    fetchHeroes(offset, heroName ? heroName : undefined);
-  }
+  // useEffect(() => {
+  //   if(!heroName) return;
+  //   setCurrentPageIndex(1);
+  //   fetchHeroes(0, heroName);
+  // }, [heroName]);
 
   return (
     <NavigationContainer>
       <StatusBar />
       <SafeAreaView style={{flex: 1}}>
-        <Text>Busca Marvel Teste Mobile</Text>
+        <HeaderContainer>
+          <Font type='black' size={16}>BUSCA MARVEL <Font type="light" size={16}>TESTE MOBILE</Font></Font>
+          <Divider />
+          <Font size={16} type="regular">Nome do Personagem</Font>
+          <Input value={heroName} onChangeText={setHeroName} />
+        </HeaderContainer>
 
-        <Text style={{ marginTop: 10 }}>Nome do Personagem</Text>
-        <TextInput style={{ borderWidth: 1 }} value={heroName} onChangeText={setHeroName} />
+        <NameBanner>Nome</NameBanner>
 
-        <Text style={{ marginTop: 10, paddingLeft: 55 }}>Nome</Text>
+        <FlatList data={heroes} renderItem={({ item })=> <HeroItem item={item} />} />
 
-        <FlatList data={heroes} renderItem={
-          ({ item })=> (
-            <View style={{ flexDirection: 'row', margin: 5 }}>
-              <Image style={{width: 50, height: 50}} source={{uri: treatThumbnailUri({path: item.thumbnail.path, extension: item.thumbnail.extension})}}  />
-              <Text>{item.name}</Text>
-            </View>
-          )
-        } />
-
-        <View style={{ flexDirection: 'row', marginTop: 5, alignSelf: 'center', width: 150, justifyContent: 'space-between' }}>
-          <TouchableOpacity style={{padding: 5}} onPress={handlePreviousPage}>
-            <Text>{'<   '}</Text>
-          </TouchableOpacity>
-          <Text>{currentPageIndex}</Text>
-          <TouchableOpacity style={{padding: 5}} onPress={handleNextPage}>
-            <Text>{'   >'}</Text>
-          </TouchableOpacity>
-
-        </View>
+        <Paginate heroes={heroes} />
       </SafeAreaView>
+      <Footer />
     </NavigationContainer>
   );
 }
