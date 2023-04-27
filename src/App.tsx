@@ -2,21 +2,22 @@ import React, {useEffect, useState} from 'react';
 import { StatusBar, SafeAreaView,FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { useFetchHeroes, usePagination } from './hooks';
-import responseData from './utils/responseData.json';
 import Paginate from './components/Paginate';
 import HeroItem from './components/HeroItem';
 import { HeaderContainer, Font, NameBanner, Input, Divider, Footer } from './styles';
 
 function App(): JSX.Element {
-  // const { heroes, fetchHeroes } = useFetchHeroes();
-  const { setCurrentPageIndex } = usePagination();
+  const { heroes, fetchHeroes, responseData } = useFetchHeroes();
+  // const { setCurrentPageIndex } = usePagination();
   const [heroName, setHeroName] = useState('');
-
-  const {results: heroes} = responseData;
   
   useEffect(() => {
     setHeroName('');
   }, []);
+
+  useEffect(() => {
+    console.log('APP:>>>',heroes)
+  }, [heroes])
 
   // useEffect(() => {
   //   if(!heroName) return;
@@ -37,9 +38,11 @@ function App(): JSX.Element {
 
         <NameBanner>Nome</NameBanner>
 
-        <FlatList data={heroes} renderItem={({ item })=> <HeroItem item={item} />} />
-
-        <Paginate heroes={heroes} />
+        <FlatList data={heroes} extraData={heroes} renderItem={({ item })=> {
+          return <HeroItem item={item} />
+        }} />
+        
+        <Paginate heroes={heroes} fetchHeroes={fetchHeroes} responseData={responseData} />
       </SafeAreaView>
       <Footer />
     </NavigationContainer>

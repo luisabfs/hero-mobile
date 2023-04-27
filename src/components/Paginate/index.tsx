@@ -1,53 +1,33 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { useFetchHeroes, usePagination } from '../../hooks';
+import { ActivityIndicator } from 'react-native';
+import { usePagination } from '../../hooks';
 import { HeroData } from '../../hooks/useFetchHeroes';
 
 import { Container, PageIndexButton, ArrowLeft, ArrowRight } from './styles';
 import { Font } from '../../styles';
 
 interface Props {
-  heroes: HeroData[];
+  heroes?: HeroData[];
+  heroName?: string;
+  fetchHeroes?: any;
+  responseData?: any;
 }
 
-const Paginate: React.FC<Props> = ({ heroes }) => {
-  const { handlePreviousPage, handleNextPage, setCurrentPageIndex, currentPageIndex, totalPages, pageOffset } = usePagination();
+const Paginate: React.FC<Props> = ({ heroes, heroName, fetchHeroes, responseData }) => {
+  const { handlePreviousPage, handleNextPage, currentPageIndex, indexes, totalPages, setCurrentPageIndex } = usePagination({fetchHeroes, responseData});
+  const currentBlockOfPages = Math.floor(currentPageIndex / 3.1);
 
   return (
     <Container>
-      <ArrowLeft 
-        // onPress={() => handlePreviousPage(heroName ? heroName : undefined)}
-      />
-
-      {/* why am I doing this? */}
-      {pageOffset > 4 ? (
-          <PageIndexButton>
-            <Text>{pageOffset / 4}</Text>
-          </PageIndexButton>
-      ) : null}
-
-      <PageIndexButton activeIndex>
-        <Font size={21} color="#ffffff">
-          {currentPageIndex}
-        </Font>
-      </PageIndexButton>
+      <ArrowLeft disabled={currentPageIndex === 1} onPress={() => handlePreviousPage(heroName ? heroName : undefined)} />
       
-      {/* <Text>{currentPageIndex + 1 > totalPages ? null : currentPageIndex + 1}</Text>
-      <Text>{currentPageIndex + 2 > totalPages ? null : currentPageIndex + 2}</Text> */}
+      {heroes && indexes ? (indexes[currentBlockOfPages].map((index: number) => (
+        <PageIndexButton key={index} activeIndex={+index === currentPageIndex} onPress={() => setCurrentPageIndex(+index)}>
+          <Font color={+index === currentPageIndex ? "#ffffff" : '#D42026'} size={21}>{index}</Font>
+        </PageIndexButton>
+      ))) : <ActivityIndicator />}
       
-      {heroes?.length === 4 ? (
-          <PageIndexButton>
-            <Font size={21}>{pageOffset / 4 + 2 }</Font>
-          </PageIndexButton>
-      ) : null} 
-      
-      {heroes?.length === 4 ? (
-          <PageIndexButton>
-            <Font size={21}>{pageOffset / 4 + 3 }</Font>
-          </PageIndexButton>
-      ) : null}
-      
-      <ArrowRight />
+      <ArrowRight disabled={currentPageIndex === totalPages} onPress={() => handleNextPage(heroName ? heroName : undefined)} />
     </Container>
   );
 }

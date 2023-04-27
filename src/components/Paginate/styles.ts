@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 interface Props {
     activeIndex?: boolean;
+    disabled?: boolean;
 }
 
 export const Container = styled.View`
@@ -29,7 +30,7 @@ export const ArrowLeft = styled.TouchableOpacity`
     border-left-width: 0; 
     border-top-color: transparent;
     border-bottom-color: transparent;
-    border-right-color: #D42026;
+    border-right-color: ${({ disabled }: Props): string => disabled ? '#EBEBEB' : '#D42026'};
     border-left-color: transparent;
 
     margin-right: 60px;
@@ -43,7 +44,7 @@ export const ArrowRight = styled.TouchableOpacity`
     border-top-color: transparent;
     border-bottom-color: transparent;
     border-right-color: transparent;
-    border-left-color: #D42026;
+    border-left-color: ${({ disabled }: Props): string => disabled ? '#EBEBEB' : '#D42026'};
 
     margin-left: 60px;
 `;
