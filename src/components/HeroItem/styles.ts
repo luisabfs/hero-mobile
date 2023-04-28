@@ -1,4 +1,8 @@
 import styled from "styled-components/native";
+import { Dimensions } from 'react-native';
+
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 
 export const Container = styled.View`
     flex-direction: row;
@@ -8,9 +12,9 @@ export const Container = styled.View`
 `;
 
 export const Thumbnail = styled.Image`
-    width: 90px;
-    height: 90px;
-    border-radius: 100px;
+    height: ${windowHeight * 0.1}px;
+    width: ${windowHeight * 0.1}px;
+    borderRadius: ${Math.round((windowHeight * 0.1 + windowWidth * 0.1) / 2)}px
     margin: 18px;
     margin-right: 30px;
 `;

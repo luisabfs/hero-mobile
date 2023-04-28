@@ -19,7 +19,7 @@ export const Font = styled.Text`
 export const NameBanner = styled.Text`
     font-family: 'Roboto-Regular';
     padding: 10px;
-    padding-left: 135px;
+    padding-left: 130px;
     backgroundColor: #D42026;
     color: #FFFFFF;
     font-size: 16px;

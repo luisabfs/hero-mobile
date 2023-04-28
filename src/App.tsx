@@ -34,7 +34,7 @@ function App(): JSX.Element {
 
         <NameBanner>Nome</NameBanner>
 
-        <FlatList data={heroes} renderItem={({ item })=> {
+        <FlatList contentContainerStyle={{flex: 1, justifyContent: 'space-evenly'}} data={heroes} renderItem={({ item })=> {
           return <HeroItem item={item} />
         }} />
         
