@@ -17,25 +17,25 @@ export const usePagination = ({fetchHeroes, responseData}: Props) => {
     setIndexes(groupArrayByThree([...Array(totalPages + 1).keys()].slice(1)));
   }, [currentPageIndex, totalPages])
 
-    console.log('pageOffset', pageOffset)
-
     useEffect(() => {
         if(responseData?.total) setTotalPages(Math.ceil(responseData?.total / LIMIT_PER_PAGE));
     }, [responseData])
 
-    const handlePreviousPage = (heroName?: string) => {
-        const offset = pageOffset - LIMIT_PER_PAGE;
+    const handlePreviousPage = (heroName?: string, newIndex?: number) => {
+        const offset = pageOffset - (LIMIT_PER_PAGE * (newIndex ? currentPageIndex - newIndex : 1));
         if(offset < 0) return;
-        setCurrentPageIndex(prevState => prevState === 1 ? 1 : prevState - 1);
+        
+        setPageOffset(offset);
+        setCurrentPageIndex(prevState => prevState === 1 ? 1 : newIndex ? newIndex : prevState - 1);
         fetchHeroes(offset, heroName ? heroName : undefined);
       }
       
-      const handleNextPage = (heroName?: string) => {
-        const offset = LIMIT_PER_PAGE * currentPageIndex;
+      const handleNextPage = (heroName?: string, newIndex?: number) => {
+        const offset = LIMIT_PER_PAGE * (newIndex ? newIndex - 1 : currentPageIndex);
         if(responseData?.total && offset > responseData?.total) return;
     
         setPageOffset(offset);
-        setCurrentPageIndex(prevState => prevState + 1);
+        setCurrentPageIndex(prevState => newIndex ? newIndex : prevState + 1);
         fetchHeroes(offset, heroName ? heroName : undefined);
       }
     

@@ -8,7 +8,7 @@ import { HeaderContainer, Font, NameBanner, Input, Divider, Footer } from './sty
 
 function App(): JSX.Element {
   const { heroes, fetchHeroes, responseData } = useFetchHeroes();
-  // const { setCurrentPageIndex } = usePagination();
+  const pagination = usePagination({fetchHeroes, responseData});
   const [heroName, setHeroName] = useState('');
   
   useEffect(() => {
@@ -16,14 +16,10 @@ function App(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    console.log('APP:>>>',heroes)
-  }, [heroes])
-
-  // useEffect(() => {
-  //   if(!heroName) return;
-  //   setCurrentPageIndex(1);
-  //   fetchHeroes(0, heroName);
-  // }, [heroName]);
+    if(!heroName) return;
+    pagination.setCurrentPageIndex(1);
+    fetchHeroes(0, heroName);
+  }, [heroName]);
 
   return (
     <NavigationContainer>
@@ -38,11 +34,17 @@ function App(): JSX.Element {
 
         <NameBanner>Nome</NameBanner>
 
-        <FlatList data={heroes} extraData={heroes} renderItem={({ item })=> {
+        <FlatList data={heroes} renderItem={({ item })=> {
           return <HeroItem item={item} />
         }} />
         
-        <Paginate heroes={heroes} fetchHeroes={fetchHeroes} responseData={responseData} />
+        <Paginate
+          pagination={pagination} 
+          heroName={heroName}
+          heroes={heroes} 
+          fetchHeroes={fetchHeroes} 
+          responseData={responseData} 
+        />
       </SafeAreaView>
       <Footer />
     </NavigationContainer>
