@@ -23,7 +23,7 @@ export const usePagination = ({ fetchHeroes, responseData }: Props): Pagination 
     const [pageOffset, setPageOffset] = useState(0);
     const [currentPageIndex, setCurrentPageIndex] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [indexes, setIndexes] = useState<Array<any>>();
+    const [indexes, setIndexes] = useState<number[][]>();
 
   useEffect(() => {
     setIndexes(groupArrayByThree([...Array(totalPages + 1).keys()].slice(1)));

@@ -6,12 +6,19 @@ interface Props {
     color?: string;
 }
 
+const fontWeight = {
+    black: 900,
+    regular: 400, 
+    light: 300
+};
+
 export const HeaderContainer = styled.View`
     margin: 12px 30px;
 `;
 
 export const Font = styled.Text`
     font-family: ${({type = "regular"}: Props) => `Roboto-${type}` };
+    font-weight: ${({type = "regular"}: Props) => fontWeight[type] };
     font-size: ${({size = 14}: Props) => size }px;
     color: ${({color = '#D42026'}: Props) => color };
 `;
@@ -43,5 +50,5 @@ export const Divider = styled.View`
 
 export const Footer = styled.View`
     background-color: #D42026;
-    height: 25px;
+    height: 12px;
 `;

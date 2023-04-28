@@ -10,11 +10,16 @@ interface ResponseData {
 }
 
 export interface HeroData {
+  id: number;
   name: string;
   thumbnail: {
     path: string;
     extension: string;
-  }
+  };
+  description?: string;
+  comics?: { items: { name: string }[] };
+  events?: { items: { name: string }[] };
+  stories?: { items: { name: string }[] };
 }
 
 export interface FetchHeroes {
