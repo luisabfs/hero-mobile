@@ -8,9 +8,9 @@ import { HeaderContainer, Font, NameBanner, Input, Divider, Footer } from './sty
 
 function App(): JSX.Element {
   const { heroes, fetchHeroes, responseData } = useFetchHeroes();
-  const pagination = usePagination({fetchHeroes, responseData});
+  const pagination = usePagination({ fetchHeroes, responseData });
   const [heroName, setHeroName] = useState('');
-  
+
   useEffect(() => {
     setHeroName('');
   }, []);
@@ -41,9 +41,7 @@ function App(): JSX.Element {
         <Paginate
           pagination={pagination} 
           heroName={heroName}
-          heroes={heroes} 
-          fetchHeroes={fetchHeroes} 
-          responseData={responseData} 
+          heroes={heroes}
         />
       </SafeAreaView>
       <Footer />

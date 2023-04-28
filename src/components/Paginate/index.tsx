@@ -1,21 +1,18 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-import { HeroData } from '../../hooks/useFetchHeroes';
+import { HeroData, Pagination } from '../../hooks';
 
 import { Container, PageIndexButton, ArrowLeft, ArrowRight } from './styles';
 import { Font } from '../../styles';
 
-//TODO: fix types
 interface Props {
   heroes?: HeroData[];
   heroName?: string;
-  fetchHeroes?: any;
-  responseData?: any;
-  pagination: any;
+  pagination: Pagination;
 }
 
 const Paginate: React.FC<Props> = ({ heroes, heroName, pagination }) => {
-  const { handlePreviousPage, handleNextPage, currentPageIndex, indexes, totalPages, setCurrentPageIndex } = pagination;
+  const { handlePreviousPage, handleNextPage, currentPageIndex, indexes, totalPages } = pagination;
   const currentBlockOfPages = Math.floor(currentPageIndex / 3.1);
 
   return (

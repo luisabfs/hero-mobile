@@ -17,11 +17,17 @@ export interface HeroData {
   }
 }
 
-export const useFetchHeroes = () => {
+export interface FetchHeroes {
+  responseData: ResponseData | undefined;
+  heroes: HeroData[] | undefined;
+  fetchHeroes: (offset: number, heroName?: string) => Promise<void>;
+}
+
+export const useFetchHeroes = (): FetchHeroes => {
     const [responseData, setResponseData] = useState<ResponseData>();
     const [heroes, setHeroes] = useState<HeroData[]>();
-    
-    const fetchHeroes = async (offset: number, heroName?: string) => {
+
+    const fetchHeroes = async (offset: number, heroName?: string): Promise<void> => {
       try {
           const response = await axios.request({
             method: 'GET',

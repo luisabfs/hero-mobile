@@ -1,2 +1,2 @@
-export { useFetchHeroes } from './useFetchHeroes';
-export { usePagination } from './usePagination';
+export { useFetchHeroes, type HeroData, type FetchHeroes } from './useFetchHeroes';
+export { usePagination, type Pagination } from './usePagination';
