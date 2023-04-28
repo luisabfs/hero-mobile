@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { StatusBar, SafeAreaView,FlatList } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaView, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
 import { useFetchHeroes, usePagination } from './hooks';
 import Paginate from './components/Paginate';
 import HeroItem from './components/HeroItem';
@@ -22,8 +21,7 @@ function App(): JSX.Element {
   }, [heroName]);
 
   return (
-    <NavigationContainer>
-      <StatusBar />
+    <KeyboardAvoidingView style={{flex: 1}} keyboardVerticalOffset={-200} behavior="height">
       <SafeAreaView style={{flex: 1}}>
         <HeaderContainer>
           <Font type='black' size={16}>BUSCA MARVEL <Font type="light" size={16}>TESTE MOBILE</Font></Font>
@@ -45,7 +43,7 @@ function App(): JSX.Element {
         />
       </SafeAreaView>
       <Footer />
-    </NavigationContainer>
+    </KeyboardAvoidingView>
   );
 }
 
