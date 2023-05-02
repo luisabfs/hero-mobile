@@ -17,9 +17,8 @@ export interface HeroData {
     extension: string;
   };
   description?: string;
-  comics?: { items: { name: string }[] };
   events?: { items: { name: string }[] };
-  stories?: { items: { name: string }[] };
+  series?: { items: { name: string }[] };
 }
 
 export interface FetchHeroes {
@@ -43,7 +42,7 @@ export const useFetchHeroes = (): FetchHeroes => {
               ts: 1,
               limit: 4, 
               offset,
-              nameStartsWith: heroName
+              nameStartsWith: heroName?.trim()
             }
           });
           setResponseData(response.data.data);
