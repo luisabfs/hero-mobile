@@ -6,11 +6,11 @@ interface Props {
 }
 
 export const Container = styled.View`
-    margin: 24px 0;
+    margin: 40px 0;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    `;
+`;
 
 export const PageIndexButton = styled.TouchableOpacity`
     justify-content: center;
