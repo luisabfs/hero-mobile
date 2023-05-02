@@ -1,4 +1,7 @@
 import styled from 'styled-components/native';
+import { Platform } from 'react-native';
+
+const isIOS = Platform.OS === 'ios';
 
 interface Props {
     type?: "black" | "light" | "regular";
@@ -27,7 +30,7 @@ export const NameBanner = styled.Text`
     font-family: 'Roboto-Regular';
     padding: 10px;
     padding-left: 130px;
-    backgroundColor: #D42026;
+    background-color: #D42026;
     color: #FFFFFF;
     font-size: 16px;
 `;
@@ -50,5 +53,5 @@ export const Divider = styled.View`
 
 export const Footer = styled.View`
     background-color: #D42026;
-    height: 12px;
+    height: ${isIOS ? 30 : 12}px;
 `;

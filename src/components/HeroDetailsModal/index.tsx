@@ -1,8 +1,9 @@
-import React from 'react';
-import { Modal } from 'react-native';
+import React, { Fragment } from 'react';
+import { Image, Modal, View } from 'react-native';
 import { HeroData } from '../../hooks/useFetchHeroes';
 import { Font } from '../../styles';
-import { OuterContainer, Container } from './styles';
+import { OuterContainer, Container, CloseButton } from './styles';
+import { treatThumbnailUri } from '../../utils';
 
 interface Props {
     modalVisible: boolean;
@@ -11,38 +12,39 @@ interface Props {
 }
 
 const HeroDetailsModal: React.FC<Props> = ({ modalVisible, setModalVisible, item }) => {
-  const comics = item.comics?.items;
-  const events = item.events?.items;
-  const stories = item.stories?.items;
+  const { path, extension } = item.thumbnail;
+  const details = [
+     { label: 'Eventos', items: item.events?.items},
+     { label: 'Séries', items: item.series?.items},
+  ];
   
   return (
-    <Modal animationType='fade' transparent visible={modalVisible} style={{ flex: 1}}>
+    <Modal statusBarTranslucent animationType='fade' transparent visible={modalVisible} style={{ flex: 1}}>
         <OuterContainer activeOpacity={1} onPress={() => setModalVisible(false)}>
             <Container>
+                <CloseButton>
+                  <Font type="black" color="#414141">X</Font>
+                </CloseButton> 
+                <Image style={{ width: '115%', height: 260, marginTop: -20, marginLeft: -20, marginBottom: 10, borderRadius: 10}} source={{uri: treatThumbnailUri({ path, extension })}} />
                 <Font type="black" size={21}>{item.name}</Font>
-                <Font color='#414141'>{item.description}</Font>
+                {item.description ? <Font color='#414141'>{item.description}</Font> : null}
 
-                {comics?.length ? (
-                  <>
-                   <Font type='black'>Quadrinhos</Font>
-                   {comics.map((item, index) => index < 3 && <Font key={item.name} color='#414141'>{`${item.name}\n`}</Font>)}
-                  </>
-                ) : null}
+                {details.map(detail => (
+                  detail.items?.length ? (
+                    <Fragment key={detail.label}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                        <Font type='black'>{detail.label}</Font>
+                      </View>
+                     {detail.items.map((item, index) => index < 3 && <Font key={item.name} color='#414141'>{`• ${item.name}`}</Font>)}
+                    </Fragment>
+                  ) : null
+                ))}
 
-                {events?.length ? (
+                {!details[0].items?.length && !details[1].items?.length ? (
                   <>
-                   <Font type='black'>Eventos</Font>
-                   {events.map((item, index) => index < 3 && <Font key={item.name} color='#414141'>{`${item.name}\n`}</Font>)}
+                    <Font color='#414141'>{`Detalhes indisponíveis :(`}</Font>
                   </>
                 ) : null}
-                
-                {stories?.length ? (
-                  <>
-                    <Font type='black'>Histórias</Font>
-                    {stories.map((item, index) => index < 3 && <Font key={item.name} color='#414141'>{`${item.name}\n`}</Font>)}
-                  </>
-                ) : null}
-                
             </Container>
         </OuterContainer>
     </Modal>

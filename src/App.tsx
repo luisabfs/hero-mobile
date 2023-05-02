@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { SafeAreaView, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
+import { SafeAreaView, StatusBar, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
 import { useFetchHeroes, usePagination } from './hooks';
 import Paginate from './components/Paginate';
 import HeroItem from './components/HeroItem';
@@ -23,6 +23,7 @@ function App(): JSX.Element {
   return (
     <KeyboardAvoidingView style={{flex: 1}} keyboardVerticalOffset={-200} behavior="height">
       <SafeAreaView style={{flex: 1}}>
+        <StatusBar backgroundColor="transparent" barStyle="dark-content" />
         <HeaderContainer>
           <Font type='black' size={16}>BUSCA MARVEL <Font type="light" size={16}>TESTE MOBILE</Font></Font>
           <Divider />
@@ -32,10 +33,10 @@ function App(): JSX.Element {
 
         <NameBanner>Nome</NameBanner>
 
-        <FlatList contentContainerStyle={{flex: 1, justifyContent: 'space-evenly'}} data={heroes} renderItem={({ item })=> {
+        <FlatList contentContainerStyle={{flex: 1}} data={heroes} renderItem={({ item })=> {
           return <HeroItem item={item} />
         }} />
-        
+
         <Paginate
           pagination={pagination} 
           heroName={heroName}

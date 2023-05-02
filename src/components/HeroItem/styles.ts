@@ -14,7 +14,7 @@ export const Container = styled.View`
 export const Thumbnail = styled.Image`
     height: ${windowHeight * 0.1}px;
     width: ${windowHeight * 0.1}px;
-    borderRadius: ${Math.round((windowHeight * 0.1 + windowWidth * 0.1) / 2)}px
+    border-radius: ${Math.round((windowHeight * 0.1 + windowWidth * 0.1) / 2)}px;
     margin: 18px;
-    margin-right: 30px;
+    margin-right: 24px;
 `;
