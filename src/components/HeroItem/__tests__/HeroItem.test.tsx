@@ -1,22 +1,32 @@
+import '../../../../mocks';
+
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
-import { results as mockedResults } from '../../../utils/responseData.json'
-import { HeroData } from '../../../hooks';
+import { render, fireEvent, renderHook, act, waitFor, screen } from '@testing-library/react-native';
+import { useFetchHeroes } from '../../../hooks';
 import HeroItem from '..';
 
 describe('<HeroItem />', () => {
-    it('should render hero name and thumbnail correctly', () => {
-        const { getByText, getByTestId } = render(<HeroItem item={mockedResults[0] as HeroData} />)
+    beforeEach(async () => {
+        const { result } = renderHook(() => useFetchHeroes());
+        act(() => {
+            result.current.fetchHeroes(0);
+        });
+        
+        await waitFor(() => {
+            expect(result.current.heroes?.length).toBeGreaterThan(0);
+        });
 
-        expect(getByText(mockedResults[0].name)).toBeTruthy();
-        expect(getByTestId('heroThumbnail')).toBeTruthy();
+        result.current.heroes && render(<HeroItem item={result.current.heroes[0]} />);
+    });
+
+    it('should render hero name and thumbnail correctly', () => {
+        expect(screen.getByText("Thor")).toBeTruthy();
+        expect(screen.getByTestId('heroThumbnail')).toBeTruthy();
     });
     
-    it('should show modal on press', () => {
-        const { getByTestId } = render(<HeroItem item={mockedResults[0] as HeroData} />)
-        
-        expect(getByTestId('heroModal').props["visible"]).toBe(false)
-        fireEvent.press(getByTestId('heroTouchable'));
-        expect(getByTestId('heroModal').props["visible"]).toBe(true)
+    it('should show modal on press', () => {        
+        expect(screen.getByTestId('heroModal').props["visible"]).toBe(false)
+        fireEvent.press(screen.getByTestId('heroTouchable'));
+        expect(screen.getByTestId('heroModal').props["visible"]).toBe(true)
     });
 });

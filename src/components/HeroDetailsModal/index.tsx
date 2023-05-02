@@ -9,10 +9,9 @@ interface Props {
     modalVisible: boolean;
     setModalVisible: any;
     item: HeroData;
-    testID: string;
 }
 
-const HeroDetailsModal: React.FC<Props> = ({ modalVisible, setModalVisible, item, testID }) => {
+const HeroDetailsModal: React.FC<Props> = ({ modalVisible, setModalVisible, item }) => {
   const { path, extension } = item.thumbnail;
   const details = [
      { label: 'Eventos', items: item.events?.items},
@@ -20,7 +19,7 @@ const HeroDetailsModal: React.FC<Props> = ({ modalVisible, setModalVisible, item
   ];
   
   return (
-    <Modal testID={testID} statusBarTranslucent animationType='fade' transparent visible={modalVisible} style={{ flex: 1}}>
+    <Modal testID="heroModal" statusBarTranslucent animationType='fade' transparent visible={modalVisible} style={{ flex: 1}}>
         <OuterContainer activeOpacity={1} onPress={() => setModalVisible(false)}>
             <Container>
                 <CloseButton>

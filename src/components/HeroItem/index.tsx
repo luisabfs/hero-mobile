@@ -17,7 +17,7 @@ const HeroItem: React.FC<Props> = ({ item }) => {
   return (
     <TouchableWithoutFeedback testID="heroTouchable" onPress={() => setModalVisible(true)}>
         <Container>
-            <HeroDetailsModal testID="heroModal" modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} />
+            <HeroDetailsModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} />
             
             <Thumbnail testID="heroThumbnail" source={{uri: treatThumbnailUri({ path, extension })}}  />
             <Font size={21} color="#4e4e4e">{truncateString(item.name, 20)}</Font>
