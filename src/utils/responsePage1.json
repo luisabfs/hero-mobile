@@ -1,0 +1,54 @@
+{
+    "data": {
+        "count": 4,
+        "limit": 4,
+        "offset": 0,
+        "results": [
+            {
+                "description": "As the Norse God of thunder and lightning, Thor wields one of the greatest weapons ever made, the enchanted hammer Mjolnir. While others have described Thor as an over-muscled, oafish imbecile, he's quite smart and compassionate.  He's self-assured, and he would never, ever stop fighting for a worthwhile cause.",
+                "id": 1009664,
+                "modified": "2020-03-11T10:18:57-0400",
+                "name": "Thor",
+                "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009664",
+                "thumbnail": {
+                    "extension": "jpg",
+                    "path": "http://i.annihil.us/u/prod/marvel/i/mg/d/d0/5269657a74350"
+                }
+            },
+            {
+               "description": "<p class=\"Body\">When the Odinson lost his ability to wield Mjolnir, the role of Thor, God of Thunder, was left unoccupied&hellip;albeit for a short time. A mysterious female figure picked up the hammer with ease, changing the inscription to fit her status as the Goddess of Thunder.</p>",
+                "id": 1017576,
+                "modified": "2014-11-17T17:48:24-0500",
+                "name": "Thor (Goddess of Thunder)",
+                "resourceURI": "http://gateway.marvel.com/v1/public/characters/1017576",
+                "thumbnail": {
+                    "extension": "jpg",
+                    "path": "http://i.annihil.us/u/prod/marvel/i/mg/4/10/545a857a38f92"
+                }
+            },
+            {
+                "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs.",
+                "id": 1017106,
+                "modified": "2013-09-18T15:49:30-0400",
+                "name": "Thor (MAA)",
+                "resourceURI": "http://gateway.marvel.com/v1/public/characters/1017106",
+                "thumbnail": {
+                    "extension": "jpg",
+                    "path": "http://i.annihil.us/u/prod/marvel/i/mg/2/03/52321948a51f2"
+                }
+            },
+            {
+               "description": "",
+                "id": 1017315,
+                "modified": "2013-09-18T10:52:05-0400",
+                "name": "Thor (Marvel Heroes)",
+                "resourceURI": "http://gateway.marvel.com/v1/public/characters/1017315",
+                "thumbnail": {
+                    "extension": "jpg",
+                    "path": "http://i.annihil.us/u/prod/marvel/i/mg/c/20/5239be0b8ecd1"
+                }
+            }
+        ],
+        "total": 8
+    }
+}

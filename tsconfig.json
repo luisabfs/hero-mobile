@@ -4,5 +4,5 @@
     "typeRoots": ["./types"],
     "types": ["react-native", "@types/jest", "styled-components-react-native"]
   },
-  "include": ["src/**/*", "**/*.test.tsx"]
+  "include": ["**/*.test.tsx", "*.d.ts"]
 }

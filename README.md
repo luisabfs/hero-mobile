@@ -16,7 +16,7 @@ These instructions will show you how to make a copy of this project and run it l
 Clone the repository:
 
 ```
-git clone https://github.com/luisabfs/heromobile.git
+git clone https://github.com/luisabfs/hero-mobile.git
 ```
 
 Initialize the dependencies in `node_modules`:

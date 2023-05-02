@@ -17,17 +17,17 @@ const Paginate: React.FC<Props> = ({ heroes, heroName, pagination }) => {
 
   return (
     <Container>
-      <ArrowLeft disabled={currentPageIndex === 1} onPress={() => handlePreviousPage(heroName ? heroName : undefined)} />
+      <ArrowLeft accessibilityRole="button" testID="arrowLeft" disabled={currentPageIndex === 1} onPress={() => handlePreviousPage(heroName ? heroName : undefined)} />
       
       {heroes && indexes ? (indexes[currentBlockOfPages].map((index: number) => (
-        <PageIndexButton key={index} activeIndex={+index === currentPageIndex} disabled={+index === currentPageIndex} onPress={() => {
+        <PageIndexButton testID="index-button" key={index} activeIndex={+index === currentPageIndex} disabled={+index === currentPageIndex} onPress={() => {
           index > currentPageIndex ? handleNextPage(heroName ? heroName : undefined, index) : handlePreviousPage(heroName ? heroName : undefined, index)
         }}>
-          <Font color={+index === currentPageIndex ? "#ffffff" : '#D42026'} size={21}>{index}</Font>
+          <Font color={+index === currentPageIndex ? "#FFFFFF" : '#D42026'} size={21}>{index}</Font>
         </PageIndexButton>
       ))) : <ActivityIndicator />}
       
-      <ArrowRight disabled={currentPageIndex === totalPages} onPress={() => handleNextPage(heroName ? heroName : undefined)} />
+      <ArrowRight accessibilityRole="button" testID="arrowRight" disabled={currentPageIndex === totalPages} onPress={() => handleNextPage(heroName ? heroName : undefined)} />
     </Container>
   );
 }
