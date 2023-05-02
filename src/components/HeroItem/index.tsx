@@ -15,11 +15,11 @@ const HeroItem: React.FC<Props> = ({ item }) => {
   const { path, extension } = item.thumbnail;
 
   return (
-    <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
+    <TouchableWithoutFeedback testID="heroTouchable" onPress={() => setModalVisible(true)}>
         <Container>
-            <HeroDetailsModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} />
+            <HeroDetailsModal testID="heroModal" modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} />
             
-            <Thumbnail source={{uri: treatThumbnailUri({ path, extension })}}  />
+            <Thumbnail testID="heroThumbnail" source={{uri: treatThumbnailUri({ path, extension })}}  />
             <Font size={21} color="#4e4e4e">{truncateString(item.name, 20)}</Font>
         </Container>
     </TouchableWithoutFeedback>
