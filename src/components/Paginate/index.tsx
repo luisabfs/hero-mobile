@@ -25,7 +25,7 @@ const Paginate: React.FC<Props> = ({ heroes, heroName, pagination }) => {
         }}>
           <Font color={+index === currentPageIndex ? "#FFFFFF" : '#D42026'} size={21}>{index}</Font>
         </PageIndexButton>
-      ))) : <ActivityIndicator />}
+      ))) : <ActivityIndicator accessibilityHint="loading" />}
       
       <ArrowRight accessibilityRole="button" testID="arrowRight" disabled={currentPageIndex === totalPages} onPress={() => handleNextPage(heroName ? heroName : undefined)} />
     </Container>

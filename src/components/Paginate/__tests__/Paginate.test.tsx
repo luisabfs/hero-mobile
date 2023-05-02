@@ -1,4 +1,4 @@
-import '../../../../mocks';
+import '../../../utils/__mocks__';
 
 import React from 'react';
 import { render, renderHook, waitFor, act, screen, fireEvent } from '@testing-library/react-native';
@@ -34,6 +34,30 @@ describe('<Paginate />', () => {
         jest.restoreAllMocks();
     });
 
+    it.only('should display a loading spinner while waiting for the API response', async () => {
+        const { result: fetchHeroesResult } = renderHook(() => useFetchHeroes());
+        const { result: paginationResult } = renderHook(() => usePagination({ 
+            fetchHeroes: fetchHeroesResult.current.fetchHeroes, 
+            responseData: fetchHeroesResult.current.responseData 
+        }));
+
+        const { update } = render(<Paginate pagination={paginationResult.current} heroes={fetchHeroesResult.current.heroes} />);
+
+        expect(await screen.findByAccessibilityHint('loading')).toBeTruthy();
+
+        act(() => {
+            fetchHeroesResult.current.fetchHeroes(0);
+        });
+        
+        await waitFor(() => {
+            expect(fetchHeroesResult.current.heroes?.length).toBeGreaterThan(0);
+        });
+
+        update(<Paginate pagination={paginationResult.current} heroes={fetchHeroesResult.current.heroes} />);
+
+        expect(await screen.queryByAccessibilityHint('loading')).toBeFalsy();
+    });
+    
     it('should disable previous button on first page', async () => {
         await init();
         const disabledButton = await screen.findByRole('button', { disabled: true });
