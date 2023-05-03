@@ -34,7 +34,7 @@ describe('<Paginate />', () => {
         jest.restoreAllMocks();
     });
 
-    it.only('should display a loading spinner while waiting for the API response', async () => {
+    it('should display a loading spinner while waiting for the API response', async () => {
         const { result: fetchHeroesResult } = renderHook(() => useFetchHeroes());
         const { result: paginationResult } = renderHook(() => usePagination({ 
             fetchHeroes: fetchHeroesResult.current.fetchHeroes, 

@@ -39,6 +39,11 @@ yarn start
 yarn ios // or yarn android
 ```
 
+Run tests:
+```
+yarn test
+```
+
 ## Built with
 
 * [Axios](https://github.com/axios/axios) - HTTP client based on Promises for the API calls;
