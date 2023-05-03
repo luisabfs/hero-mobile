@@ -38,3 +38,11 @@ Start and build the app:
 yarn start
 yarn ios // or yarn android
 ```
+
+## Built with
+
+* [Axios](https://github.com/axios/axios) - HTTP client based on Promises for the API calls;
+* [Styled Components](https://github.com/styled-components/styled-components) - CSS-in-JS for styling React components;
+* [Jest and React Native Testing Library](https://github.com/callstack/react-native-testing-library) - for automated unit tests;
+* [Axios Mock Adapter](https://github.com/ctimmerm/axios-mock-adapter) - Axios adapter that allows to easily mock requests;
+* [React Native Dotenv](https://github.com/goatandsheep/react-native-dotenv) - for loading environment variables using import statements;
