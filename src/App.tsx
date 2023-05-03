@@ -26,7 +26,7 @@ function App(): JSX.Element {
   }, [responseData])
 
   return (
-    <KeyboardAvoidingView style={{flex: 1}} keyboardVerticalOffset={-200} behavior="height">
+    <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={-200} behavior="height">
       <SafeAreaView style={{flex: 1}}>
         <StatusBar backgroundColor="transparent" barStyle="dark-content" />
         <HeaderContainer>
@@ -39,7 +39,7 @@ function App(): JSX.Element {
         <NameBanner>Nome</NameBanner>
 
         {heroes ? (
-          <FlatList contentContainerStyle={{flex: 1}} data={heroes} renderItem={({ item })=> {
+          <FlatList contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }} data={heroes} renderItem={({ item })=> {
             return <HeroItem item={item} />
           }} /> 
         ) : (

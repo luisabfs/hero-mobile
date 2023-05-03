@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const Container = styled.View`
-    margin: 40px 0;
+    padding: 15px 0;
     flex-direction: row;
     align-items: center;
     justify-content: center;
