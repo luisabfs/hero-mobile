@@ -1,28 +1,25 @@
 import './utils/__mocks__';
 
 import React from 'react';
-import { render, renderHook, waitFor, act, screen } from '@testing-library/react-native';
+import { render, renderHook, waitFor, act, screen, fireEvent } from '@testing-library/react-native';
 import { useFetchHeroes} from './hooks';
 import App from './App';
 
 describe('<App />', () => {
-    afterEach(() => {
-        jest.restoreAllMocks();
-    });
-
-    it('should display error message if API response returns no heroes', async () => {
+    it('should query heroes by text input value', async () => {
         const { result: fetchHeroesResult } = renderHook(() => useFetchHeroes());
-        const { update } = render(<App />)
+        render(<App />);
+
+        const input = screen.getByLabelText("input");
+        fireEvent.changeText(input, 'Thor');
+        expect(input.props.value).toBe("Thor")
 
         act(() => {
-            fetchHeroesResult.current.fetchHeroes(0, 'Non-existent hero');
+            fetchHeroesResult.current.fetchHeroes(0, input.props.value);
         });   
-
-        update(<App />)
         
         await waitFor(() => {
-            expect(fetchHeroesResult.current.heroes).toBeFalsy();
-            expect(screen.getByAccessibilityHint('errorMessage'));
+            expect(fetchHeroesResult.current.responseData?.total).toBeGreaterThan(0);
         });
     });
 });

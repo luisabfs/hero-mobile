@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest --verbose",
-    "test:dev": "jest --verbose --watch"
+    "test:dev": "jest --verbose --watch --coverage"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.6",
@@ -46,7 +46,7 @@
   "jest": {
     "preset": "react-native",
     "setupFilesAfterEnv": [
-      "@testing-library/jest-native/extend-expect"
+      "@testing-library/jest-native/extend-expect"    
     ]
   }
 }

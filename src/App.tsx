@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StatusBar, FlatList, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { SafeAreaView, StatusBar, FlatList, KeyboardAvoidingView, View } from 'react-native';
 import { useFetchHeroes, usePagination } from './hooks';
 import Paginate from './components/Paginate';
 import HeroItem from './components/HeroItem';
@@ -22,7 +22,6 @@ function App(): JSX.Element {
   }, [heroName]);
 
   useEffect(() => {
-    console.log(responseData)
     if(responseData?.total === 0) setErrorMessage('Não há heróis a exibir.');
   }, [responseData])
 
@@ -34,7 +33,7 @@ function App(): JSX.Element {
           <Font type='black' size={16}>BUSCA MARVEL <Font type="light" size={16}>TESTE MOBILE</Font></Font>
           <Divider />
           <Font size={16} type="regular">Nome do Personagem</Font>
-          <Input value={heroName} onChangeText={setHeroName} />
+          <Input accessibilityLabel="input" value={heroName} onChangeText={setHeroName} />
         </HeaderContainer>
 
         <NameBanner>Nome</NameBanner>
@@ -49,7 +48,7 @@ function App(): JSX.Element {
               <Font accessibilityHint="errorMessage" size={24} color="#4e4e4e">{errorMessage}</Font> 
             : null}
           </View>
-        )}
+        )}        
 
         <Paginate
           pagination={pagination} 

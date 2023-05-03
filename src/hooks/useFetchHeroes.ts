@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosResponse} from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { API_KEY, API_HASH } from '@env';
 
@@ -6,7 +6,7 @@ axios.defaults.baseURL = "https://gateway.marvel.com/v1/public/";
 
 interface ResponseData {
   total: number;
-  results: HeroData;
+  results: HeroData[];
 }
 
 export interface HeroData {
@@ -45,13 +45,10 @@ export const useFetchHeroes = (): FetchHeroes => {
               nameStartsWith: heroName?.trim()
             }
           }) as AxiosResponse<{ data: ResponseData; }>;
-
+          
           setResponseData(response?.data.data);
-          if(response?.data.data.total === 0) throw AxiosError;
-          setHeroes(response?.data.data.results);
-      } catch(error) {
-          setHeroes(undefined);
-      }
+          setHeroes(response?.data.data.results.length !== 0 ? response?.data.data.results : undefined);
+      } catch(error) {}
     }
 
     useEffect(() => {
