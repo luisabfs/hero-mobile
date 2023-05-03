@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 import { useEffect, useState } from 'react';
 import { API_KEY, API_HASH } from '@env';
 
@@ -6,7 +6,7 @@ axios.defaults.baseURL = "https://gateway.marvel.com/v1/public/";
 
 interface ResponseData {
   total: number;
-  results: HeroData
+  results: HeroData;
 }
 
 export interface HeroData {
@@ -29,7 +29,7 @@ export interface FetchHeroes {
 
 export const useFetchHeroes = (): FetchHeroes => {
     const [responseData, setResponseData] = useState<ResponseData>();
-    const [heroes, setHeroes] = useState<HeroData[]>();
+    const [heroes, setHeroes] = useState<HeroData[] | any>();
 
     const fetchHeroes = async (offset: number, heroName?: string): Promise<void> => {
       try {
@@ -44,11 +44,13 @@ export const useFetchHeroes = (): FetchHeroes => {
               offset,
               nameStartsWith: heroName?.trim()
             }
-          });
-          setResponseData(response.data.data);
-          setHeroes(response.data.data.results);
+          }) as AxiosResponse<{ data: ResponseData; }>;
+
+          setResponseData(response?.data.data);
+          if(response?.data.data.total === 0) throw AxiosError;
+          setHeroes(response?.data.data.results);
       } catch(error) {
-          console.log(error)
+          setHeroes(undefined);
       }
     }
 
