@@ -6,7 +6,7 @@ import { useFetchHeroes} from './hooks';
 import App from './App';
 
 describe('<App />', () => {
-    it('should query heroes by text input value', async () => {
+    it('should query heroes by name from text input value', async () => {
         const { result: fetchHeroesResult } = renderHook(() => useFetchHeroes());
         render(<App />);
 
@@ -22,4 +22,17 @@ describe('<App />', () => {
             expect(fetchHeroesResult.current.responseData?.total).toBeGreaterThan(0);
         });
     });
+
+    it('should display error message if query returns no heroes', async () => {
+        const { update } = render(<App />);
+        
+        const input = screen.getByLabelText("input");
+        fireEvent.changeText(input, 'Non-existent hero');
+        
+        update(<App />);
+      
+        expect(await screen.findByAccessibilityHint('errorMessage')).toBeTruthy();
+    });
+    
+
 });
