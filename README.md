@@ -1,6 +1,8 @@
 # Hero Mobile App
 > React Native application for listing Marvel superheroes!
 
+![alt text](src/utils/hero-mobile.png)
+
 ## How to start
 
 These instructions will show you how to make a copy of this project and run it locally in a development environment:
